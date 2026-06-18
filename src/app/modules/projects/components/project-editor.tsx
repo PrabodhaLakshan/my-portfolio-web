@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 import { AdminHeading } from "@/app/modules/admin/components/admin-heading";
+import { BlobUploadField } from "@/app/modules/admin/components/blob-upload-field";
 
 export function ProjectEditor({ project }: { project?: Project }) {
   const router = useRouter();
@@ -56,7 +57,7 @@ export function ProjectEditor({ project }: { project?: Project }) {
           <Area name="description" label="Full description" value={project?.description} />
           <Control name="techStack" label="Tech stack (comma separated)" value={project?.techStack.join(", ")} required />
           <label><span className="label">Category</span><select className="input" name="category" defaultValue={project?.category ?? "Next.js"}>{["Web Development", "Cyber Security", "MERN", "Next.js", "Academic", "Other"].map((item) => <option key={item}>{item}</option>)}</select></label>
-          <Control name="imageUrl" label="Image URL" value={project?.imageUrl} type="url" />
+          <BlobUploadField name="imageUrl" label="Project image" value={project?.imageUrl} folder="projects/images/" />
           <Control name="githubUrl" label="GitHub URL" value={project?.githubUrl} type="url" />
           <Control name="liveUrl" label="Live demo URL" value={project?.liveUrl} type="url" />
           <Control name="order" label="Display order" value={String(project?.order ?? 0)} type="number" />

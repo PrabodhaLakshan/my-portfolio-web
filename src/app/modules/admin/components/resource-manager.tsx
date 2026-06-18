@@ -4,12 +4,15 @@ import { useEffect, useState } from "react";
 import { Pencil, Plus, Save, Trash2, X } from "lucide-react";
 import { toast } from "sonner";
 import { AdminHeading } from "./admin-heading";
+import { BlobUploadField } from "./blob-upload-field";
 
 export type Field = {
   name: string;
   label: string;
-  type?: "text" | "textarea" | "number" | "date" | "checkbox" | "list" | "url" | "select";
+  type?: "text" | "textarea" | "number" | "date" | "checkbox" | "list" | "url" | "select" | "upload";
   options?: string[];
+  uploadFolder?: string;
+  accept?: string;
   required?: boolean;
 };
 
@@ -80,5 +83,6 @@ function FieldControl({ field, value }: { field: Field; value: RecordValue | und
   if (field.type === "checkbox") return <label className="flex items-center gap-3 self-end rounded-xl border border-white/10 p-3"><input name={field.name} type="checkbox" defaultChecked={Boolean(value)} /><span className="text-sm">{field.label}</span></label>;
   if (field.type === "textarea") return <label className="md:col-span-2"><span className="label">{field.label}</span><textarea className="input min-h-28" name={field.name} defaultValue={initial} required={field.required} /></label>;
   if (field.type === "select") return <label><span className="label">{field.label}</span><select className="input" name={field.name} defaultValue={initial}>{field.options?.map((option) => <option key={option}>{option}</option>)}</select></label>;
+  if (field.type === "upload") return <BlobUploadField name={field.name} label={field.label} value={initial} folder={field.uploadFolder ?? "uploads/"} accept={field.accept} required={field.required} />;
   return <label><span className="label">{field.label}{field.type === "list" && " (comma separated)"}</span><input className="input" name={field.name} type={field.type === "list" ? "text" : field.type ?? "text"} defaultValue={initial} required={field.required} /></label>;
 }
