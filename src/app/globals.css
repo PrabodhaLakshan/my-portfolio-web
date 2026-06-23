@@ -5,6 +5,8 @@
 :root {
   --background: 222 47% 6%;
   --foreground: 210 40% 98%;
+  --cyan-glow: 34 211 238;
+  --violet-glow: 139 92 246;
 }
 
 * {
@@ -19,9 +21,39 @@ body {
   min-height: 100vh;
   color: hsl(var(--foreground));
   background:
-    radial-gradient(circle at 12% 10%, rgb(8 145 178 / 0.13), transparent 28rem),
-    radial-gradient(circle at 88% 24%, rgb(124 58 237 / 0.13), transparent 30rem),
+    radial-gradient(circle at 12% 10%, rgb(8 145 178 / 0.15), transparent 28rem),
+    radial-gradient(circle at 88% 24%, rgb(124 58 237 / 0.15), transparent 30rem),
+    radial-gradient(circle at 50% 80%, rgb(8 145 178 / 0.06), transparent 35rem),
     #020617;
+}
+
+/* Cyber grid background */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgb(34 211 238 / 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(34 211 238 / 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Subtle scanline overlay */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgb(0 0 0 / 0.03) 2px,
+    rgb(0 0 0 / 0.03) 4px
+  );
+  pointer-events: none;
+  z-index: 0;
 }
 
 ::selection {
@@ -38,6 +70,11 @@ body {
     @apply border border-white/10 bg-white/[0.045] shadow-2xl shadow-black/20 backdrop-blur-xl;
   }
 
+  /* Enhanced glass with cyan glow */
+  .glass-cyber {
+    @apply border border-cyan-400/20 bg-white/[0.04] shadow-2xl shadow-cyan-500/10 backdrop-blur-xl;
+  }
+
   .input {
     @apply w-full rounded-xl border border-white/10 bg-slate-950/70 px-4 py-3 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-cyan-400/60 focus:ring-2 focus:ring-cyan-400/10;
   }
@@ -46,7 +83,43 @@ body {
     @apply mb-2 block text-sm font-medium text-slate-300;
   }
 
+  /* AI gradient text — animated */
   .gradient-text {
     @apply bg-gradient-to-r from-cyan-300 via-blue-400 to-violet-400 bg-clip-text text-transparent;
+    background-size: 200% auto;
+    animation: gradientX 6s ease infinite;
+  }
+
+  /* Cyber neon button glow */
+  .btn-cyber {
+    @apply relative overflow-hidden rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 px-5 py-3 font-semibold text-slate-950 transition;
+    box-shadow: 0 0 20px rgb(34 211 238 / 0.3);
+  }
+  .btn-cyber:hover {
+    box-shadow: 0 0 30px rgb(34 211 238 / 0.5), 0 0 60px rgb(34 211 238 / 0.2);
+    transform: scale(1.02);
+  }
+
+  /* Terminal-style blinking cursor */
+  .cursor-blink::after {
+    content: "_";
+    animation: flicker 1s step-end infinite;
+  }
+
+  /* Cyber section divider */
+  .cyber-divider {
+    @apply border-t border-cyan-400/10;
+    box-shadow: 0 -1px 0 rgb(34 211 238 / 0.05);
+  }
+
+  /* Profile image glow ring */
+  .profile-ring {
+    @apply rounded-full border-2 border-cyan-400/40;
+    box-shadow:
+      0 0 20px rgb(34 211 238 / 0.3),
+      0 0 60px rgb(34 211 238 / 0.1),
+      inset 0 0 20px rgb(34 211 238 / 0.05);
+    animation: borderGlow 3s ease-in-out infinite;
   }
 }
+

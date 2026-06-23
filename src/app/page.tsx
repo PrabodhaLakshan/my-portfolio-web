@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowRight, Award, BriefcaseBusiness, Code2, Database, Download, ExternalLink,
   Github, GraduationCap, Linkedin, Mail, MapPin, Phone, ShieldCheck, Wrench,
@@ -22,6 +23,7 @@ const fallbackProfile = {
   shortBio: "I build secure, modern, and user-friendly web applications while continuously improving my cyber security and full-stack development skills.",
   aboutText: "I am W.M. Prabodha Lakshan, an IT undergraduate from Sri Lanka with a strong interest in cyber security, web development, and modern software engineering. I enjoy building practical projects, learning new technologies, and solving real-world problems through secure and efficient digital solutions.",
   email: "admin@portfolio.dev", phone: null, location: "Sri Lanka", cvUrl: null,
+  profileImageUrl: null,
   githubUrl: null, linkedinUrl: null, facebookUrl: null, instagramUrl: null, whatsappUrl: null,
 };
 
@@ -40,8 +42,11 @@ export default async function HomePage() {
       <Navbar />
       <main>
         <section id="home" className="relative flex min-h-screen items-center overflow-hidden pt-20">
+          {/* Cyber ambient glows */}
           <div className="absolute left-[8%] top-32 h-64 w-64 animate-float rounded-full bg-cyan-500/10 blur-3xl" />
           <div className="absolute bottom-16 right-[8%] h-80 w-80 animate-float rounded-full bg-violet-500/10 blur-3xl [animation-delay:2s]" />
+          <div className="absolute left-1/2 top-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 animate-pulse-glow rounded-full bg-cyan-500/5 blur-3xl" />
+          <div className="absolute right-[20%] top-20 h-32 w-32 animate-float rounded-full bg-cyan-400/8 blur-2xl [animation-delay:1s]" />
           <div className="container-shell relative grid items-center gap-12 py-24 lg:grid-cols-[1.2fr_.8fr]">
             <Reveal>
               <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-400/5 px-4 py-2 text-xs text-cyan-200">
@@ -57,15 +62,50 @@ export default async function HomePage() {
               <div className="mt-9 flex flex-wrap gap-3">
                 <Link href="#projects" className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 px-5 py-3 font-semibold text-slate-950 transition hover:scale-[1.02]">View projects <ArrowRight size={17} /></Link>
                 <Link href="#contact" className="rounded-xl border border-white/10 bg-white/5 px-5 py-3 font-semibold text-white transition hover:border-cyan-400/30">Contact me</Link>
-                {profile.cvUrl && <a href={profile.cvUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-xl px-5 py-3 text-slate-300 hover:text-white"><Download size={17} /> Download CV</a>}
+                {profile.cvUrl && (
+                  <a
+                    href={profile.cvUrl}
+                    download
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 rounded-xl border border-cyan-400/30 bg-cyan-400/10 px-5 py-3 font-semibold text-cyan-300 transition hover:bg-cyan-400/20 hover:scale-[1.02]"
+                  >
+                    <Download size={17} /> Download CV
+                  </a>
+                )}
               </div>
             </Reveal>
             <Reveal className="mx-auto">
-              <div className="relative grid h-72 w-72 place-items-center rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-cyan-400/10 to-violet-500/10 shadow-2xl shadow-cyan-500/10 backdrop-blur-xl sm:h-96 sm:w-96">
-                <div className="absolute inset-5 rounded-[2rem] border border-white/10" />
-                <ShieldCheck size={100} strokeWidth={1} className="text-cyan-300" />
-                <span className="absolute bottom-8 rounded-full border border-white/10 bg-slate-950/80 px-4 py-2 text-xs text-slate-300">Security • Code • Curiosity</span>
-              </div>
+              {profile.profileImageUrl ? (
+                <div className="relative">
+                  {/* Outer animated glow rings */}
+                  <div className="absolute inset-0 rounded-full animate-ping-slow opacity-20 bg-cyan-400/30 blur-xl" />
+                  <div className="absolute -inset-3 rounded-full border border-cyan-400/20 animate-spin-slow" />
+                  <div className="absolute -inset-6 rounded-full border border-violet-500/10 animate-spin-slower" />
+                  {/* Glow halo */}
+                  <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-cyan-500/30 to-violet-500/30 blur-2xl" />
+                  {/* Profile image */}
+                  <div className="profile-ring relative h-72 w-72 overflow-hidden shadow-2xl sm:h-80 sm:w-80">
+                    <Image
+                      src={profile.profileImageUrl}
+                      alt={profile.fullName}
+                      fill
+                      className="object-cover"
+                      priority
+                    />
+                  </div>
+                  {/* Badge */}
+                  <span className="absolute -bottom-4 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-cyan-400/30 bg-slate-950/90 px-4 py-2 text-xs text-cyan-300 shadow-lg">
+                    Security • Code • Curiosity
+                  </span>
+                </div>
+              ) : (
+                <div className="relative grid h-72 w-72 place-items-center rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-cyan-400/10 to-violet-500/10 shadow-2xl shadow-cyan-500/10 backdrop-blur-xl sm:h-96 sm:w-96">
+                  <div className="absolute inset-5 rounded-[2rem] border border-white/10" />
+                  <ShieldCheck size={100} strokeWidth={1} className="text-cyan-300" />
+                  <span className="absolute bottom-8 rounded-full border border-white/10 bg-slate-950/80 px-4 py-2 text-xs text-slate-300">Security • Code • Curiosity</span>
+                </div>
+              )}
             </Reveal>
           </div>
         </section>
