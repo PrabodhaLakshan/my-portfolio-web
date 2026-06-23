@@ -1,9 +1,19 @@
 import { z } from "zod";
 
+function isValidUrlOrPath(value: string) {
+  if (value === "") return true;
+
+  const trimmed = value.trim();
+  if (trimmed.startsWith("/")) return true;
+  if (trimmed.startsWith("data:")) return true;
+
+  return z.string().url().safeParse(trimmed).success;
+}
+
 export const optionalUrl = z
   .string()
   .trim()
-  .refine((value) => value === "" || z.string().url().safeParse(value).success, "Enter a valid URL")
+  .refine((value) => isValidUrlOrPath(value), "Enter a valid URL")
   .optional()
   .nullable();
 
