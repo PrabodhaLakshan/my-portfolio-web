@@ -48,12 +48,6 @@ export function Navbar() {
         </div>
         <div className="flex items-center gap-2">
           <ThemeToggle />
-          <Link
-            href="/admin"
-            className="hidden rounded-xl border border-cyan-400/20 bg-cyan-400/5 px-4 py-2 text-sm text-cyan-300 transition hover:border-cyan-400/50 hover:bg-cyan-400/10 hover:shadow-[0_0_15px_rgba(34,211,238,0.2)] sm:block"
-          >
-            Admin
-          </Link>
           <button
             className="rounded-xl border border-white/10 p-2.5 xl:hidden"
             onClick={() => setOpen(!open)}
@@ -75,12 +69,6 @@ export function Navbar() {
               {link}
             </Link>
           ))}
-          <Link
-            href="/admin"
-            className="mt-2 block rounded-xl border border-cyan-400/20 bg-cyan-400/5 px-3 py-2 text-sm text-cyan-300"
-          >
-            Admin Panel
-          </Link>
         </div>
       )}
     </header>
