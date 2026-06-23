@@ -8,6 +8,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { AdminHeading } from "@/app/modules/admin/components/admin-heading";
 import { BlobUploadField } from "@/app/modules/admin/components/blob-upload-field";
+import { BLOB_ACCESS, getBlobFileUrl } from "@/lib/blob-assets";
 
 export function ProjectEditor({ project }: { project?: Project }) {
   const router = useRouter();
@@ -69,8 +70,8 @@ export function ProjectEditor({ project }: { project?: Project }) {
             setUploading(true);
             try {
               const cleanName = file.name.replace(/[^\w.-]+/g, "-").toLowerCase();
-              const blob = await upload(`projects/videos/${cleanName}`, file, { access: "public", handleUploadUrl: "/api/blob/upload", multipart: true });
-              setBlobUrl(blob.url);
+              const blob = await upload(`projects/videos/${cleanName}`, file, { access: BLOB_ACCESS, handleUploadUrl: "/api/blob/upload", multipart: true });
+              setBlobUrl(getBlobFileUrl(blob.pathname));
               toast.success("Video uploaded");
             } catch (error) {
               toast.error(error instanceof Error ? error.message : "Video upload failed");

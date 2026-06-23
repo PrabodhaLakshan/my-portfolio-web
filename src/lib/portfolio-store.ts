@@ -1,6 +1,7 @@
-import { list, put } from "@vercel/blob";
+import { get, put } from "@vercel/blob";
 import { defaultPortfolioData } from "@/app/modules/shared/default-portfolio-data";
 import type { PortfolioData } from "@/app/modules/shared/types/portfolio-data";
+import { BLOB_ACCESS, toServedPortfolioAssetUrls } from "@/lib/blob-assets";
 
 const PORTFOLIO_DATA_BLOB_PATH =
   process.env.PORTFOLIO_DATA_BLOB_PATH || "portfolio-data.json";
@@ -10,21 +11,19 @@ function cloneDefaultData(): PortfolioData {
 }
 
 export async function getPortfolioData(): Promise<PortfolioData> {
-  if (!process.env.BLOB_READ_WRITE_TOKEN) return cloneDefaultData();
+  if (!process.env.BLOB_READ_WRITE_TOKEN) return toServedPortfolioAssetUrls(cloneDefaultData());
 
   try {
-    const result = await list({ prefix: PORTFOLIO_DATA_BLOB_PATH });
-    const blob = result.blobs.find(
-      (item) => item.pathname === PORTFOLIO_DATA_BLOB_PATH,
-    );
-    if (!blob?.url) return cloneDefaultData();
+    const result = await get(PORTFOLIO_DATA_BLOB_PATH, {
+      access: BLOB_ACCESS,
+      useCache: false,
+    });
+    if (!result || result.statusCode === 304) return toServedPortfolioAssetUrls(cloneDefaultData());
 
-    const response = await fetch(blob.url, { cache: "no-store" });
-    if (!response.ok) return cloneDefaultData();
-
-    return (await response.json()) as PortfolioData;
+    const response = new Response(result.stream);
+    return toServedPortfolioAssetUrls((await response.json()) as PortfolioData);
   } catch {
-    return cloneDefaultData();
+    return toServedPortfolioAssetUrls(cloneDefaultData());
   }
 }
 
@@ -36,7 +35,7 @@ export async function savePortfolioData(
   }
 
   await put(PORTFOLIO_DATA_BLOB_PATH, JSON.stringify(data, null, 2), {
-    access: "public",
+    access: BLOB_ACCESS,
     contentType: "application/json",
     allowOverwrite: true,
     addRandomSuffix: false,

@@ -4,6 +4,7 @@ import { upload } from "@vercel/blob/client";
 import { CheckCircle2, Loader2, UploadCloud, X } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
+import { BLOB_ACCESS, getBlobFileUrl } from "@/lib/blob-assets";
 
 type BlobUploadFieldProps = {
   name: string;
@@ -31,12 +32,12 @@ export function BlobUploadField({
       const cleanName = file.name.replace(/[^\w.-]+/g, "-").toLowerCase();
       const pathname = `${folder.replace(/\/?$/, "/")}${cleanName}`;
       const blob = await upload(pathname, file, {
-        access: "public",
+        access: BLOB_ACCESS,
         handleUploadUrl: "/api/blob/upload",
         multipart: true,
       });
 
-      setUrl(blob.url);
+      setUrl(getBlobFileUrl(blob.pathname));
       toast.success("File uploaded");
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "Upload failed");
