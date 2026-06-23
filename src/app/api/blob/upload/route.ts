@@ -23,6 +23,13 @@ const allowedFolders = [
 
 export async function POST(request: Request) {
   try {
+    if (!process.env.BLOB_READ_WRITE_TOKEN) {
+      return NextResponse.json(
+        { error: "BLOB_READ_WRITE_TOKEN is not configured" },
+        { status: 500 },
+      );
+    }
+
     const body = (await request.json()) as HandleUploadBody;
     if (body.type === "blob.generate-client-token" && !(await requireAdmin())) {
       return NextResponse.json(

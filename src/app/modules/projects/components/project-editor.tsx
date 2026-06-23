@@ -68,7 +68,8 @@ export function ProjectEditor({ project }: { project?: Project }) {
             if (!file) return;
             setUploading(true);
             try {
-              const blob = await upload(`projects/videos/${file.name}`, file, { access: "public", handleUploadUrl: "/api/blob/upload", multipart: true });
+              const cleanName = file.name.replace(/[^\w.-]+/g, "-").toLowerCase();
+              const blob = await upload(`projects/videos/${cleanName}`, file, { access: "public", handleUploadUrl: "/api/blob/upload", multipart: true });
               setBlobUrl(blob.url);
               toast.success("Video uploaded");
             } catch (error) {
