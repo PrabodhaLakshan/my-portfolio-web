@@ -7,9 +7,9 @@ import { Toaster } from "sonner";
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <SessionProvider>
-      <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+      <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
         {children}
-        <Toaster theme="dark" richColors position="top-right" />
+        <Toaster richColors position="top-right" />
       </ThemeProvider>
     </SessionProvider>
   );
