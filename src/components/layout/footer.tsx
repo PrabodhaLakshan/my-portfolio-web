@@ -2,18 +2,18 @@ import Link from "next/link";
 
 export function Footer({ name }: { name: string }) {
   return (
-    <footer className="border-t border-white/10 py-10">
-      <div className="container-shell flex flex-col justify-between gap-5 text-sm text-slate-500 sm:flex-row">
+    <footer className="border-t border-border py-12 mt-20 bg-card/15">
+      <div className="container-shell flex flex-col justify-between gap-6 text-xs font-medium text-muted-foreground sm:flex-row sm:items-center">
         <div>
-          <p className="font-semibold text-slate-200">{name}</p>
-          <p className="mt-1">Secure ideas. Thoughtful software.</p>
+          <p className="font-display text-sm font-bold text-foreground tracking-tight">{name}</p>
+          <p className="mt-1 text-xs text-muted-foreground/80">Secure ideas • Thoughtful software</p>
         </div>
-        <div className="flex gap-5">
-          <Link href="#projects" className="hover:text-cyan-300">Projects</Link>
-          <Link href="#contact" className="hover:text-cyan-300">Contact</Link>
-          <Link href="/login" className="hover:text-cyan-300">Admin</Link>
+        <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs uppercase tracking-wider font-semibold">
+          <Link href="#projects" className="transition-colors hover:text-accent">Projects</Link>
+          <Link href="#contact" className="transition-colors hover:text-accent">Contact</Link>
+          <Link href="/login" className="transition-colors hover:text-accent">Admin</Link>
         </div>
-        <p>© {new Date().getFullYear()} {name}</p>
+        <p className="text-xs font-medium">© {new Date().getFullYear()} {name}</p>
       </div>
     </footer>
   );

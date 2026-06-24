@@ -30,15 +30,16 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={submit} className="glass rounded-2xl p-6 sm:p-8">
-      <div className="grid gap-5 sm:grid-cols-2">
-        <label><span className="label">Name</span><input className="input" name="name" required /></label>
-        <label><span className="label">Email</span><input className="input" name="email" type="email" required /></label>
+    <form onSubmit={submit} className="glass rounded-2xl p-6 sm:p-8 space-y-6">
+      <div className="grid gap-6 sm:grid-cols-2">
+        <label className="block"><span className="label">Name</span><input className="input" name="name" required /></label>
+        <label className="block"><span className="label">Email</span><input className="input" name="email" type="email" required /></label>
       </div>
-      <label className="mt-5 block"><span className="label">Subject</span><input className="input" name="subject" required /></label>
-      <label className="mt-5 block"><span className="label">Message</span><textarea className="input min-h-36 resize-y" name="message" required /></label>
-      <button disabled={pending} className="mt-5 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 px-5 py-3 font-semibold text-slate-950 transition hover:scale-[1.02] disabled:opacity-60">
-        <Send size={17} /> {pending ? "Sending..." : "Send message"}
+      <label className="block"><span className="label">Subject</span><input className="input" name="subject" required /></label>
+      <label className="block"><span className="label">Message</span><textarea className="input min-h-36 resize-y" name="message" required /></label>
+      <button disabled={pending} className="btn-primary group w-full sm:w-auto">
+        <Send size={15} className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" /> 
+        {pending ? "Sending..." : "Send message"}
       </button>
     </form>
   );
