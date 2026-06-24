@@ -3,47 +3,41 @@
 @tailwind utilities;
 
 :root {
-  --background: 210 40% 98%;      /* #f8fafc (slate-50) */
-  --foreground: 224 71.4% 4.1%;   /* #020617 (slate-950) */
-  --card: 0 0% 100%;              /* #ffffff (white) */
+  --background: 210 40% 98%;
+  --foreground: 224 71.4% 4.1%;
+  --card: 0 0% 100%;
   --card-foreground: 224 71.4% 4.1%;
-  
-  --primary: 222.2 47.4% 11.2%;   /* #0f172a (slate-900) */
+  --primary: 222.2 47.4% 11.2%;
   --primary-foreground: 210 40% 98%;
-  
-  --secondary: 210 40% 96.1%;     /* #f1f5f9 (slate-100) */
+  --secondary: 210 40% 96.1%;
   --secondary-foreground: 222.2 47.4% 11.2%;
-  
   --muted: 210 40% 96.1%;
-  --muted-foreground: 215.4 16.3% 44%; /* refined slate-500 */
-  
-  --accent: 192 90% 38%;          /* #0891b2 (cyan-600) - premium deep teal */
+  --muted-foreground: 215.4 16.3% 44%;
+  --accent: 192 90% 38%;
   --accent-foreground: 210 40% 98%;
-  
-  --border: 220 13% 91%;          /* #e2e8f0 (slate-200) */
+  --border: 220 13% 91%;
   --input: 220 13% 91%;
   --ring: 222.2 47.4% 11.2%;
+
+  /* Mouse spotlight CSS vars */
+  --mouse-x: 50%;
+  --mouse-y: 50%;
 }
 
 .dark {
-  --background: 224 71.4% 4.1%;   /* #030712 (slate-950) */
-  --foreground: 210 40% 98%;      /* #f8fafc */
-  --card: 224 71.4% 6%;           /* #0b0f19 (slightly lighter charcoal) */
+  --background: 224 71.4% 4.1%;
+  --foreground: 210 40% 98%;
+  --card: 224 71.4% 6%;
   --card-foreground: 210 40% 98%;
-  
-  --primary: 210 40% 98%;         /* #ffffff (white) */
+  --primary: 210 40% 98%;
   --primary-foreground: 222.2 47.4% 11.2%;
-  
-  --secondary: 217.2 32.6% 17.5%; /* #1e293b (slate-800) */
+  --secondary: 217.2 32.6% 17.5%;
   --secondary-foreground: 210 40% 98%;
-  
   --muted: 217.2 32.6% 17.5%;
-  --muted-foreground: 215 20.2% 65.1%; /* slate-400 */
-  
-  --accent: 187 90% 45%;          /* #22d3ee (cyan-400) - glowing cyber teal */
+  --muted-foreground: 215 20.2% 65.1%;
+  --accent: 187 90% 45%;
   --accent-foreground: 222.2 47.4% 11.2%;
-  
-  --border: 217.2 32.6% 17.5%;    /* #1e293b */
+  --border: 217.2 32.6% 17.5%;
   --input: 217.2 32.6% 17.5%;
   --ring: 212.7 26.8% 83.9%;
 }
@@ -61,67 +55,141 @@ body {
   min-height: 100vh;
   color: hsl(var(--foreground));
   background-color: hsl(var(--background));
-  /* Modern fine dot-matrix pattern */
-  background-image: radial-gradient(hsl(var(--foreground) / 0.05) 1px, transparent 1px);
-  background-size: 24px 24px;
   position: relative;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  overflow-x: hidden;
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
-/* Subtle drifting ambient lighting blobs */
-.ambient-blob {
-  position: absolute;
-  border-radius: 9999px;
-  filter: blur(80px);
-  opacity: 0.12;
+/* ─── Animated dot grid background ─── */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(hsl(var(--foreground) / 0.06) 1px, transparent 1px);
+  background-size: 28px 28px;
   pointer-events: none;
   z-index: 0;
-  transition: opacity 0.5s ease;
-}
-.dark .ambient-blob {
-  opacity: 0.07;
+  animation: gridPulse 8s ease-in-out infinite;
 }
 
-/* Cursor tracking spotlight glow */
+/* ─── Mouse spotlight ─── */
+/* Rendered via JS variables on <html> element */
 .mouse-glow {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  z-index: 1;
-  background: radial-gradient(500px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), hsl(var(--accent) / 0.04), transparent 85%);
-}
-.dark .mouse-glow {
-  background: radial-gradient(600px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), hsl(var(--accent) / 0.07), transparent 85%);
+  z-index: 9998; /* sits above content but below modals */
+  /* Light mode: a visible warm-teal radial glow that follows cursor */
+  background: radial-gradient(
+    280px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    hsl(var(--accent) / 0.10),
+    hsl(var(--accent) / 0.04) 45%,
+    transparent 80%
+  );
+  transition: background 0.05s linear;
 }
 
+.dark .mouse-glow {
+  /* Dark mode: a slightly larger, brighter glow */
+  background: radial-gradient(
+    340px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    hsl(var(--accent) / 0.18),
+    hsl(var(--accent) / 0.07) 45%,
+    transparent 80%
+  );
+}
+
+/* ─── Floating ambient background orbs ─── */
+.ambient-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(70px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Light-mode orb colours */
+.ambient-blob-1 {
+  background: radial-gradient(circle, hsl(187 90% 45% / 0.22), transparent 70%);
+  animation: orbDrift1 18s ease-in-out infinite;
+}
+.ambient-blob-2 {
+  background: radial-gradient(circle, hsl(250 70% 65% / 0.15), transparent 70%);
+  animation: orbDrift2 22s ease-in-out infinite;
+}
+.ambient-blob-3 {
+  background: radial-gradient(circle, hsl(187 90% 45% / 0.10), transparent 70%);
+  animation: orbDrift3 26s ease-in-out infinite;
+}
+
+/* Dark-mode overrides - more vibrant */
+.dark .ambient-blob-1 {
+  background: radial-gradient(circle, hsl(187 90% 55% / 0.12), transparent 70%);
+}
+.dark .ambient-blob-2 {
+  background: radial-gradient(circle, hsl(250 70% 65% / 0.10), transparent 70%);
+}
+.dark .ambient-blob-3 {
+  background: radial-gradient(circle, hsl(187 90% 55% / 0.07), transparent 70%);
+}
+
+/* ─── Text selection ─── */
 ::selection {
   color: hsl(var(--primary-foreground));
   background: hsl(var(--accent) / 0.4);
 }
 
+/* ─── Keyframe animations ─── */
+@keyframes gridPulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+@keyframes orbDrift1 {
+  0%   { transform: translate(0, 0) scale(1); }
+  25%  { transform: translate(40px, -30px) scale(1.08); }
+  50%  { transform: translate(-20px, 50px) scale(0.94); }
+  75%  { transform: translate(60px, 20px) scale(1.05); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+@keyframes orbDrift2 {
+  0%   { transform: translate(0, 0) scale(1); }
+  30%  { transform: translate(-50px, 30px) scale(1.1); }
+  60%  { transform: translate(30px, -40px) scale(0.92); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+@keyframes orbDrift3 {
+  0%   { transform: translate(0, 0) scale(1); }
+  40%  { transform: translate(30px, 60px) scale(1.06); }
+  70%  { transform: translate(-40px, -20px) scale(0.96); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+/* ─── Component utilities ─── */
 @layer components {
   .container-shell {
     @apply mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-12;
   }
 
-  /* Premium minimalist card with subtle shadow in light, glassy shadow in dark */
+  /* Glass card */
   .glass {
-    @apply border border-border bg-card/65 text-card-foreground shadow-[0_4px_20px_rgba(0,0,0,0.02)] backdrop-blur-md transition-all duration-300;
+    @apply border border-border bg-card/65 text-card-foreground shadow-[0_4px_24px_rgba(0,0,0,0.04)] backdrop-blur-md transition-all duration-300;
   }
   .dark .glass {
-    @apply border-white/[0.04] bg-card/40 shadow-[0_10px_30px_rgba(0,0,0,0.3)] backdrop-blur-md;
+    @apply border-white/[0.05] bg-card/40 shadow-[0_10px_40px_rgba(0,0,0,0.35)];
   }
 
-  /* Enhanced cards with accent glow borders */
+  /* Glass with accent border glow */
   .glass-cyber {
-    @apply border border-accent/20 bg-card/75 shadow-[0_8px_30px_rgba(8,145,178,0.03)] backdrop-blur-md transition-all duration-300;
+    @apply border border-accent/20 bg-card/75 shadow-[0_8px_30px_rgba(8,145,178,0.06)] backdrop-blur-md transition-all duration-300;
   }
   .dark .glass-cyber {
-    @apply border-accent/15 bg-card/45 shadow-[0_12px_40px_rgba(0,0,0,0.4)] backdrop-blur-md;
+    @apply border-accent/15 bg-card/45 shadow-[0_12px_40px_rgba(0,0,0,0.4)];
   }
 
+  /* Inputs */
   .input {
-    @apply w-full rounded-xl border border-border bg-card/70 px-4 py-3 text-sm text-foreground outline-none transition-all duration-300 placeholder:text-muted-foreground/60 focus:border-accent focus:ring-4 focus:ring-accent/5;
+    @apply w-full rounded-xl border border-border bg-card/70 px-4 py-3 text-sm text-foreground outline-none transition-all duration-300 placeholder:text-muted-foreground/60 focus:border-accent focus:ring-4 focus:ring-accent/10;
   }
   .dark .input {
     @apply border-white/[0.08] bg-slate-950/40 focus:border-accent/60;
@@ -131,35 +199,39 @@ body {
     @apply mb-2 block text-xs font-semibold uppercase tracking-wider text-muted-foreground;
   }
 
-  /* Editorial gradient text */
+  /* Animated gradient headline text */
   .gradient-text {
-    @apply bg-gradient-to-r from-foreground via-accent to-accent bg-clip-text text-transparent;
-    background-size: 200% auto;
-    animation: gradientX 8s ease infinite;
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(var(--foreground)), hsl(var(--accent)), hsl(250 70% 55%), hsl(var(--accent)));
+    background-size: 300% auto;
+    animation: gradientShift 6s ease infinite;
+  }
+  .dark .gradient-text {
+    background-image: linear-gradient(135deg, hsl(var(--foreground)), hsl(var(--accent)), hsl(250 70% 70%), hsl(var(--accent)));
   }
 
-  /* Premium matte black CTA button in light, clean white in dark */
+  /* Primary solid button */
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-sm transition-all duration-300 hover:-translate-y-[2px] hover:shadow-md active:translate-y-0 disabled:opacity-60;
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-sm transition-all duration-300 hover:-translate-y-[3px] hover:shadow-lg active:translate-y-0 disabled:opacity-60;
   }
   .dark .btn-primary {
-    @apply shadow-[0_4px_20px_rgba(255,255,255,0.08)];
+    @apply shadow-[0_4px_20px_rgba(255,255,255,0.06)] hover:shadow-[0_8px_30px_rgba(255,255,255,0.12)];
   }
 
-  /* Sleek, sophisticated outline secondary button */
+  /* Outline secondary button */
   .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-card/40 px-6 py-3.5 text-sm font-semibold text-foreground transition-all duration-300 hover:-translate-y-[2px] hover:border-foreground/20 hover:bg-secondary active:translate-y-0;
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-card/40 px-6 py-3.5 text-sm font-semibold text-foreground transition-all duration-300 hover:-translate-y-[3px] hover:border-foreground/20 hover:bg-secondary hover:shadow-sm active:translate-y-0;
   }
   .dark .btn-secondary {
     @apply border-white/[0.08] bg-white/[0.02] hover:border-white/20 hover:bg-white/[0.06];
   }
 
-  /* Custom utility button for CV download */
+  /* Accent outline button */
   .btn-accent-outline {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-accent/30 bg-accent/5 px-6 py-3.5 text-sm font-semibold text-accent transition-all duration-300 hover:-translate-y-[2px] hover:bg-accent/10 active:translate-y-0;
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-accent/30 bg-accent/5 px-6 py-3.5 text-sm font-semibold text-accent transition-all duration-300 hover:-translate-y-[3px] hover:bg-accent/10 hover:border-accent/50 active:translate-y-0;
   }
 
-  /* Custom architectural viewfinder corners for profile image */
+  /* Profile image viewfinder corners */
   .viewfinder-corner {
     @apply absolute h-3.5 w-3.5 border-accent/40 transition-all duration-500;
   }
@@ -167,25 +239,59 @@ body {
   .viewfinder-corner-tr { @apply -right-1 -top-1 border-r-2 border-t-2; }
   .viewfinder-corner-bl { @apply -bottom-1 -left-1 border-b-2 border-l-2; }
   .viewfinder-corner-br { @apply -bottom-1 -right-1 border-b-2 border-r-2; }
-  
+
   .profile-container:hover .viewfinder-corner {
-    @apply h-5 w-5 border-accent scale-110;
+    @apply h-5 w-5 border-accent;
   }
 
-  /* Timeline components */
-  .timeline-thread {
-    @apply relative pl-8 border-l border-border;
-  }
+  /* Timeline */
   .timeline-dot {
-    @apply absolute -left-[5px] top-1.5 h-2.5 w-2.5 rounded-full border border-accent bg-background shadow-[0_0_8px_hsl(var(--accent))];
+    @apply absolute -left-[5px] top-1.5 h-2.5 w-2.5 rounded-full border-2 border-accent bg-background;
+    box-shadow: 0 0 0 4px hsl(var(--accent) / 0.12), 0 0 12px hsl(var(--accent) / 0.25);
+    animation: timelinePulse 3s ease-in-out infinite;
   }
 
-  /* Hide scrollbars globally but keep scrolling active */
-  .scrollbar-none::-webkit-scrollbar {
-    display: none;
-  }
-  .scrollbar-none {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
+  /* Scrollbar hide */
+  .scrollbar-none::-webkit-scrollbar { display: none; }
+  .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
+}
+
+/* ─── More keyframes ─── */
+@keyframes gradientShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes timelinePulse {
+  0%, 100% { box-shadow: 0 0 0 4px hsl(var(--accent) / 0.12), 0 0 12px hsl(var(--accent) / 0.25); }
+  50%       { box-shadow: 0 0 0 6px hsl(var(--accent) / 0.20), 0 0 20px hsl(var(--accent) / 0.40); }
+}
+
+/* ─── Cursor ring: scale up on interactive hover ─── */
+a:hover ~ #cursor-ring,
+button:hover ~ #cursor-ring {
+  width: 52px !important;
+  height: 52px !important;
+  border-color: hsl(187 90% 45% / 0.75) !important;
+}
+
+/* ─── Reveal component entrance animation ─── */
+@keyframes revealUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.reveal-enter {
+  animation: revealUp 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ─── Skill bar shimmer on enter ─── */
+@keyframes shimmerFill {
+  from { background-position: -200% 0; }
+  to   { background-position: 200% 0; }
+}
+.skill-bar-fill {
+  background: linear-gradient(90deg, hsl(var(--accent)), hsl(250 70% 60%), hsl(var(--accent)));
+  background-size: 200% 100%;
+  animation: shimmerFill 2.5s ease infinite;
 }
