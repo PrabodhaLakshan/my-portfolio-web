@@ -16,4 +16,5 @@ export const profileSchema = z.object({
   facebookUrl: optionalUrl,
   instagramUrl: optionalUrl,
   whatsappUrl: optionalUrl,
+  youtubeUrl: optionalUrl,
 });

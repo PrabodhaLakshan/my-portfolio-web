@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import {
   ArrowRight, Award, BriefcaseBusiness, Code2, Database, Download, ExternalLink,
-  Github, GraduationCap, Linkedin, Mail, MapPin, Phone, ShieldCheck, Wrench,
+  Github, GraduationCap, Linkedin, Mail, MapPin, Phone, ShieldCheck, Wrench, Youtube,
 } from "lucide-react";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
@@ -402,6 +402,11 @@ export default async function HomePage() {
                   {profile.linkedinUrl && (
                     <a href={profile.linkedinUrl} target="_blank" rel="noreferrer" className="rounded-xl border border-border p-3 text-muted-foreground hover:bg-secondary hover:text-foreground transition-all duration-300" aria-label="LinkedIn">
                       <Linkedin size={20} />
+                    </a>
+                  )}
+                  {profile.youtubeUrl && (
+                    <a href={profile.youtubeUrl} target="_blank" rel="noreferrer" className="rounded-xl border border-border p-3 text-muted-foreground hover:bg-secondary hover:text-foreground transition-all duration-300" aria-label="YouTube">
+                      <Youtube size={20} />
                     </a>
                   )}
                 </div>

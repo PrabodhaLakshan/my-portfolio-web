@@ -46,6 +46,7 @@ export type PortfolioData = {
     facebookUrl?: string;
     instagramUrl?: string;
     whatsappUrl?: string;
+    youtubeUrl?: string;
   };
   projects: PortfolioProject[];
   skills: {

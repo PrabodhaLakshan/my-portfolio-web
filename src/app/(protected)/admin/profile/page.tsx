@@ -7,6 +7,6 @@ const fields: Field[] = [
   { name: "email", label: "Email" }, { name: "phone", label: "Phone" }, { name: "location", label: "Location" },
   { name: "githubUrl", label: "GitHub URL", type: "url" }, { name: "linkedinUrl", label: "LinkedIn URL", type: "url" },
   { name: "facebookUrl", label: "Facebook URL", type: "url" }, { name: "instagramUrl", label: "Instagram URL", type: "url" },
-  { name: "whatsappUrl", label: "WhatsApp URL", type: "url" },
+  { name: "whatsappUrl", label: "WhatsApp URL", type: "url" }, { name: "youtubeUrl", label: "YouTube Channel URL", type: "url" },
 ];
 export default function Page() { return <SingletonForm title="Profile" description="Edit the personal details shown throughout the public portfolio." endpoint="/api/profile" fields={fields} />; }
