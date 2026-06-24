@@ -1,6 +1,6 @@
 "use client";
 
-import { Youtube } from "lucide-react";
+import { Play, Youtube } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 type Short = { id: string; url: string; title?: string };
@@ -55,10 +55,10 @@ function ShortCard({ short, channelName }: { short: Short; channelName?: string 
   return (
     <div
       ref={containerRef}
-      className="group relative flex-shrink-0 w-[200px] sm:w-[220px] snap-start"
+      className="group relative flex-shrink-0 w-[180px] sm:w-[200px] snap-start"
     >
       {/* 9:16 Short frame */}
-      <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-black shadow-xl shadow-black/40 transition-all duration-500 group-hover:border-red-500/40 group-hover:shadow-red-500/10 group-hover:-translate-y-1"
+      <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-black shadow-lg shadow-black/30 transition-all duration-500 group-hover:border-red-500/40 group-hover:shadow-red-500/10 group-hover:-translate-y-1"
         style={{ aspectRatio: "9/16" }}
       >
         {inView ? (
@@ -85,10 +85,19 @@ function ShortCard({ short, channelName }: { short: Short; channelName?: string 
           aria-label={short.title || "Watch YouTube Short"}
         />
 
+        <div className="absolute inset-x-2 top-2 z-10 flex items-center justify-between pointer-events-none">
+          <span className="rounded-full border border-white/15 bg-black/50 px-2 py-1 text-[9px] font-bold uppercase tracking-[0.2em] text-white/80 backdrop-blur-sm">
+            Short
+          </span>
+          <div className="rounded-full border border-white/15 bg-black/50 p-1.5 text-white/80 backdrop-blur-sm">
+            <Play size={10} className="fill-current" />
+          </div>
+        </div>
+
         {/* Bottom gradient */}
-        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-3 pointer-events-none">
+        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/85 to-transparent p-3 pointer-events-none">
           {short.title && (
-            <p className="text-[11px] font-semibold text-white line-clamp-2 leading-tight">
+            <p className="text-[10px] font-semibold text-white line-clamp-2 leading-tight">
               {short.title}
             </p>
           )}
@@ -120,7 +129,7 @@ export function YoutubeShorts({
   return (
     <div className="mt-16">
       {/* Section header */}
-      <div className="mb-8 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <div className="mb-6 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-red-500/10 border border-red-500/20">
             <Youtube size={20} className="text-red-500" />
@@ -150,7 +159,7 @@ export function YoutubeShorts({
 
       {/* Horizontal scroll of short cards */}
       <div
-        className="flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-4"
+        className="flex gap-3 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-2"
         style={{ scrollbarWidth: "none" }}
       >
         {shorts.map((short) => (

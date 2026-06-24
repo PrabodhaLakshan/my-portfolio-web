@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
 import {
   Award, BriefcaseBusiness, Code2, FolderKanban, GraduationCap, Home, LayoutDashboard,
-  LogOut, Mail, Settings, Sparkles, UserRound, Wrench,
+  LogOut, Mail, Settings, Sparkles, UserRound, Wrench, Youtube,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -17,6 +17,7 @@ const items = [
   ["/admin/education", "Education", GraduationCap],
   ["/admin/experience", "Experience", BriefcaseBusiness],
   ["/admin/certificates", "Certificates", Award],
+  ["/admin/youtube-videos", "YouTube Videos", Youtube],
   ["/admin/services", "Services", Wrench],
   ["/admin/messages", "Messages", Mail],
   ["/admin/settings", "Settings", Settings],
