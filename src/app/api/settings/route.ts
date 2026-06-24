@@ -18,8 +18,9 @@ export async function PATCH(request: Request) {
     const parsed = settingsSchema.safeParse(await request.json());
     if (!parsed.success) return NextResponse.json({ success: false, message: parsed.error.issues[0]?.message, data: parsed.error.flatten() }, { status: 400 });
     const settingsData = Object.fromEntries(
-      Object.entries(parsed.data).filter(([, value]) => value !== null),
+      Object.entries(parsed.data).filter(([, value]) => value !== null && value !== undefined),
     ) as SiteSettings;
+
     const portfolio = await updatePortfolioData((current) => ({ ...current, settings: settingsData }));
     const settings = portfolio.settings;
     return NextResponse.json({ success: true, message: "Settings updated", data: settings });

@@ -10,7 +10,8 @@ import { GlassCard } from "@/components/common/glass-card";
 import { SectionHeading } from "@/components/common/section-heading";
 import { ContactForm } from "@/app/modules/home/components/contact-form";
 import { ProjectGrid } from "@/app/modules/home/components/project-grid";
-import { ProjectVideo } from "@/app/modules/projects/components/project-video";
+import { ProjectVideoCarousel } from "@/app/modules/projects/components/project-video-carousel";
+import { YoutubeShorts } from "@/app/modules/home/components/youtube-shorts";
 import { Reveal } from "@/app/modules/home/components/reveal";
 import { getPortfolioData } from "@/app/modules/home/actions";
 import { formatDate } from "@/lib/utils";
@@ -225,9 +226,9 @@ export default async function HomePage() {
           <Reveal>
             <SectionHeading eyebrow="Projects" title="Selected work and active experiments" description="Practical work across web development, software engineering, and academic problem solving." />
           </Reveal>
-          {data.projects.find((project) => project.featured && project.video?.source !== "none") && (
+          {data.projects.some((p) => p.video?.source !== "none" && (p.video?.youtubeVideoId || p.video?.blobUrl || p.video?.url)) && (
             <Reveal className="mx-auto mb-12 max-w-5xl">
-              <ProjectVideo video={data.projects.find((project) => project.featured && project.video?.source !== "none")?.video} title={data.projects.find((project) => project.featured && project.video?.source !== "none")?.title ?? "Featured project"} />
+              <ProjectVideoCarousel projects={data.projects} />
             </Reveal>
           )}
           {data.projects.length ? (
@@ -330,6 +331,14 @@ export default async function HomePage() {
                 <EmptyCopy text="Certificates can be published from the admin panel." />
               )}
             </div>
+            {/* YouTube Shorts — shown when admin has added shorts */}
+            {settings?.youtubeShorts && settings.youtubeShorts.length > 0 && (
+              <YoutubeShorts
+                shorts={settings.youtubeShorts}
+                channelName={settings.youtubeChannelName ?? profile.fullName}
+                channelUrl={profile.youtubeUrl ?? undefined}
+              />
+            )}
           </section>
         )}
 

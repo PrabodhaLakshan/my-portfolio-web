@@ -118,6 +118,8 @@ export type PortfolioData = {
     showCertificatesSection: boolean;
     showExperienceSection: boolean;
     maintenanceMode: boolean;
+    youtubeChannelName?: string;
+    youtubeShorts?: { id: string; url: string; title?: string }[];
   };
 };
 
