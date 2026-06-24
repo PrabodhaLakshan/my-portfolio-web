@@ -57,7 +57,7 @@ export function ProjectEditor({ project }: { project?: Project }) {
           <Area name="shortDescription" label="Short description" value={project?.shortDescription} />
           <Area name="description" label="Full description" value={project?.description} />
           <Control name="techStack" label="Tech stack (comma separated)" value={project?.techStack.join(", ")} required />
-          <label><span className="label">Category</span><select className="input" name="category" defaultValue={project?.category ?? "Next.js"}>{["Web Development", "Cyber Security", "MERN", "Next.js", "Academic", "Other"].map((item) => <option key={item}>{item}</option>)}</select></label>
+          <label><span className="label">Category</span><select className="input" name="category" defaultValue={project?.category ?? "Next.js"}>{["Web Development", "Mobile Development", "MERN", "Next.js", "Academic", "Other"].map((item) => <option key={item}>{item}</option>)}</select></label>
           <BlobUploadField name="imageUrl" label="Project image" value={project?.imageUrl} folder="projects/images/" />
           <Control name="githubUrl" label="GitHub URL" value={project?.githubUrl} type="url" />
           <Control name="liveUrl" label="Live demo URL" value={project?.liveUrl} type="url" />
@@ -87,7 +87,7 @@ export function ProjectEditor({ project }: { project?: Project }) {
             <label className="flex items-center gap-3 rounded-xl border border-white/10 p-3"><input type="checkbox" name="controls" defaultChecked={project?.video?.controls ?? true} /><span className="text-sm">Show Controls</span></label>
           </>}
         </div>
-        <button disabled={uploading} className="mt-7 flex items-center gap-2 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 px-5 py-3 font-semibold text-slate-950 disabled:opacity-50"><Save size={16} /> {uploading ? "Uploading..." : "Save project"}</button>
+        <button disabled={uploading} className="btn-primary mt-7 flex items-center gap-2"><Save size={16} /> {uploading ? "Uploading..." : "Save project"}</button>
       </form>
     </>
   );

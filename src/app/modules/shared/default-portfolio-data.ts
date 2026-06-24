@@ -5,11 +5,11 @@ const now = "2026-01-01T00:00:00.000Z";
 export const defaultPortfolioData: PortfolioData = {
   profile: {
     fullName: "W.M. Prabodha Lakshan",
-    professionalTitle: "Cyber Security Undergraduate",
+    professionalTitle: "IT Undergraduate & Developer",
     shortBio:
-      "I build secure, modern, and user-friendly web applications while growing my cyber security and full-stack development skills.",
+      "I build modern, responsive, and user-friendly web applications while growing my full-stack development and software engineering skills.",
     aboutText:
-      "I am W.M. Prabodha Lakshan, an IT undergraduate from Sri Lanka with a strong interest in cyber security, web development, and modern software engineering. I enjoy building practical projects, learning new technologies, and solving real-world problems through secure and efficient digital solutions.",
+      "I am W.M. Prabodha Lakshan, an IT undergraduate from Sri Lanka with a strong interest in web development, software engineering, and modern web applications. I enjoy building practical projects, learning new technologies, and solving real-world problems through efficient digital solutions.",
     email: "admin@portfolio.dev",
     location: "Sri Lanka",
   },
@@ -40,7 +40,7 @@ export const defaultPortfolioData: PortfolioData = {
   skills: [
     { id: "typescript", name: "TypeScript", category: "Development", level: 80, order: 0 },
     { id: "nextjs", name: "Next.js", category: "Development", level: 78, order: 1 },
-    { id: "cyber-security", name: "Cyber Security", category: "Security", level: 72, order: 0 },
+    { id: "javascript", name: "JavaScript/ES6", category: "Development", level: 85, order: 2 },
   ],
   education: [],
   experience: [],
@@ -58,7 +58,7 @@ export const defaultPortfolioData: PortfolioData = {
   settings: {
     siteTitle: "W.M. Prabodha Lakshan | Portfolio",
     metaDescription:
-      "Portfolio of W.M. Prabodha Lakshan, a cyber security undergraduate and web developer.",
+      "Portfolio of W.M. Prabodha Lakshan, an IT undergraduate and full-stack developer.",
     heroBadgeText: "Available for internships and projects",
     showServicesSection: true,
     showCertificatesSection: true,

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Menu, ShieldCheck, X } from "lucide-react";
+import { Menu, Code2, X } from "lucide-react";
 import { useState, useEffect } from "react";
 import { ThemeToggle } from "@/components/common/theme-toggle";
 
@@ -27,7 +27,7 @@ export function Navbar() {
     >
       <nav className="container-shell flex h-16 items-center justify-between">
         <Link href="#home" className="group flex items-center gap-2 font-display font-bold text-foreground text-sm tracking-tight">
-          <ShieldCheck
+          <Code2
             className="text-accent transition-all group-hover:scale-105"
             size={20}
           />

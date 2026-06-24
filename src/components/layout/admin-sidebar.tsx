@@ -4,8 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
 import {
-  Award, BriefcaseBusiness, FolderKanban, GraduationCap, Home, LayoutDashboard,
-  LogOut, Mail, Settings, ShieldCheck, Sparkles, UserRound, Wrench,
+  Award, BriefcaseBusiness, Code2, FolderKanban, GraduationCap, Home, LayoutDashboard,
+  LogOut, Mail, Settings, Sparkles, UserRound, Wrench,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -25,21 +25,14 @@ const items = [
 export function AdminSidebar() {
   const pathname = usePathname();
   return (
-    <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 border-r border-white/5 bg-slate-950/90 p-4 backdrop-blur-xl lg:block">
-      {/* Subtle cyber grid on sidebar */}
-      <div className="pointer-events-none absolute inset-0 opacity-30"
-        style={{
-          backgroundImage: "linear-gradient(rgb(34 211 238 / 0.04) 1px, transparent 1px), linear-gradient(90deg, rgb(34 211 238 / 0.04) 1px, transparent 1px)",
-          backgroundSize: "40px 40px",
-        }}
-      />
+    <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 border-r border-border bg-card/90 p-4 backdrop-blur-xl lg:block">
       {/* Logo */}
-      <Link href="/admin" className="relative mb-7 flex items-center gap-3 px-3 py-3 font-bold">
-        <span className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-cyan-400 to-blue-500 text-slate-950 shadow-[0_0_15px_rgba(34,211,238,0.4)]">
-          <ShieldCheck size={18} />
+      <Link href="/admin" className="relative mb-7 flex items-center gap-3 px-3 py-3 font-bold text-foreground font-display">
+        <span className="grid h-9 w-9 place-items-center rounded-xl bg-primary text-primary-foreground shadow-md">
+          <Code2 size={18} />
         </span>
-        <span className="text-sm">
-          Portfolio <span className="text-cyan-300">Admin</span>
+        <span className="text-sm tracking-tight">
+          Portfolio <span className="text-accent">Admin</span>
         </span>
       </Link>
       {/* Nav items */}

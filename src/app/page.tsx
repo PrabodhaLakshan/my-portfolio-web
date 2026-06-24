@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import {
   ArrowRight, Award, BriefcaseBusiness, Code2, Database, Download, ExternalLink,
-  Github, GraduationCap, Linkedin, Mail, MapPin, Phone, ShieldCheck, Wrench, Youtube,
+  Github, GraduationCap, Linkedin, Mail, MapPin, Phone, Wrench, Youtube,
 } from "lucide-react";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
@@ -19,9 +19,9 @@ export const dynamic = "force-dynamic";
 
 const fallbackProfile = {
   fullName: "W.M. Prabodha Lakshan",
-  professionalTitle: "Cyber Security Undergraduate",
-  shortBio: "I build secure, modern, and user-friendly web applications while continuously improving my cyber security and full-stack development skills.",
-  aboutText: "I am W.M. Prabodha Lakshan, an IT undergraduate from Sri Lanka with a strong interest in cyber security, web development, and modern software engineering. I enjoy building practical projects, learning new technologies, and solving real-world problems through secure and efficient digital solutions.",
+  professionalTitle: "IT Undergraduate & Developer",
+  shortBio: "I build modern, responsive, and user-friendly web applications while growing my full-stack development and software engineering skills.",
+  aboutText: "I am W.M. Prabodha Lakshan, an IT undergraduate from Sri Lanka with a strong interest in web development, software engineering, and modern web applications. I enjoy building practical projects, learning new technologies, and solving real-world problems through efficient digital solutions.",
   email: "admin@portfolio.dev", phone: null, location: "Sri Lanka", cvUrl: null,
   profileImageUrl: null,
   githubUrl: null, linkedinUrl: null, facebookUrl: null, instagramUrl: null, whatsappUrl: null,
@@ -37,7 +37,7 @@ export default async function HomePage() {
     return (
       <main className="grid min-h-screen place-items-center px-6 text-center bg-background text-foreground">
         <div className="glass-cyber rounded-2xl p-10 max-w-md shadow-2xl">
-          <ShieldCheck className="mx-auto mb-6 text-accent animate-pulse" size={48} />
+          <Wrench className="mx-auto mb-6 text-accent animate-pulse" size={48} />
           <h1 className="font-display text-3xl font-bold tracking-tight">Portfolio maintenance</h1>
           <p className="mt-4 text-sm leading-relaxed text-muted-foreground">A refreshed experience is on the way. Please check back shortly.</p>
         </div>
@@ -121,7 +121,7 @@ export default async function HomePage() {
                   
                   {/* Premium tag pill */}
                   <span className="absolute -bottom-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-lg border border-border bg-card/90 px-4 py-1.5 text-[9px] font-bold uppercase tracking-widest text-accent shadow-md backdrop-blur-sm">
-                    Security • Code • Curiosity
+                    Design • Development • Innovation
                   </span>
                 </div>
               ) : (
@@ -134,9 +134,9 @@ export default async function HomePage() {
 
                   {/* Placeholder box */}
                   <div className="relative grid h-72 w-72 place-items-center rounded-[2rem] border-2 border-dashed border-border bg-card/50 backdrop-blur-md shadow-2xl sm:h-80 sm:w-80">
-                    <ShieldCheck size={72} strokeWidth={1} className="text-accent animate-pulse" />
+                    <Code2 size={72} strokeWidth={1} className="text-accent animate-pulse" />
                     <span className="absolute -bottom-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-lg border border-border bg-card/90 px-4 py-1.5 text-[9px] font-bold uppercase tracking-widest text-accent shadow-md backdrop-blur-sm">
-                      Security • Code • Curiosity
+                      Design • Development • Innovation
                     </span>
                   </div>
                 </div>
@@ -148,13 +148,13 @@ export default async function HomePage() {
         {/* About Section */}
         <section id="about" className="container-shell scroll-mt-24 py-24">
           <Reveal>
-            <SectionHeading eyebrow="About" title="Building with purpose and security in mind" />
+            <SectionHeading eyebrow="About" title="Building modern software with purpose and detail" />
           </Reveal>
           <Reveal>
             <GlassCard className="grid gap-8 p-8 md:grid-cols-[0.4fr_1fr] md:p-10">
               <div className="rounded-2xl border border-border bg-secondary/30 p-8 flex flex-col justify-between shadow-inner">
                 <div>
-                  <ShieldCheck className="text-accent" size={48} />
+                  <Code2 className="text-accent" size={48} />
                   <p className="mt-8 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Location</p>
                   <p className="mt-1 text-sm font-bold text-foreground">{profile.location}</p>
                 </div>
@@ -169,7 +169,7 @@ export default async function HomePage() {
                   <p className="mt-4 text-base leading-relaxed text-muted-foreground">{profile.aboutText}</p>
                 </div>
                 <div className="mt-8 flex flex-wrap gap-2">
-                  {["Cyber Security", "Full-stack Development", "Networking", "Modern Software Engineering"].map((item) => (
+                  {["Web Development", "Full-stack Development", "UI/UX Design", "Modern Software Engineering"].map((item) => (
                     <span key={item} className="rounded-lg border border-border bg-card/50 px-3.5 py-1.5 text-xs font-semibold text-foreground shadow-sm">
                       {item}
                     </span>
@@ -223,7 +223,7 @@ export default async function HomePage() {
         {/* Projects Section */}
         <section id="projects" className="container-shell scroll-mt-24 py-24">
           <Reveal>
-            <SectionHeading eyebrow="Projects" title="Selected work and active experiments" description="Practical work across web development, security, and academic problem solving." />
+            <SectionHeading eyebrow="Projects" title="Selected work and active experiments" description="Practical work across web development, software engineering, and academic problem solving." />
           </Reveal>
           {data.projects.find((project) => project.featured && project.video?.source !== "none") && (
             <Reveal className="mx-auto mb-12 max-w-5xl">
